@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import bodyParser from "body-parser";
 import approutes from "./routes/app.routes.js";
 import env from "./config/environment.js";
 import { connectDB } from "./config/db.js";
@@ -7,6 +8,9 @@ import { connectDB } from "./config/db.js";
 /** CONFIGURATION */
 const __dirname = path.resolve();
 const app = express();
+app.use(express.json());
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // // Serve static files from the client's build/dist folder
 // app.use(express.static(path.join(__dirname, "client", "dist")));
@@ -29,10 +33,10 @@ app.all("/*", (req, res) => {
 const port = env.port;
 
 connectDB()
-  .then((connection) => {
+  .then((connectedDb) => {
     app.listen(port, () => {
       console.log(`app listening on port ${port}`);
-      console.log(`connected to DB :: ${connection.name}`);
+      console.log(`connected to DB :: ${connectedDb.name}`);
     });
   })
   .catch((error) => console.log(`${error} did not connect`));
