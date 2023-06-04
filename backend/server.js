@@ -12,13 +12,15 @@ app.use(express.json());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// // Serve static files from the client's build/dist folder
-// app.use(express.static(path.join(__dirname, "client", "dist")));
+if (env === "production") {
+  // Serve static files from the client's build/dist folder
+  app.use(express.static(path.join(__dirname, "frontend", "dist")));
 
-// // // Route for serving the React app
-// app.get("/", (req, res) => {
-//   return res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-// });
+  // Route for serving the React app
+  app.get("/", (req, res) => {
+    return res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+  });
+}
 
 /** ROUTES */
 app.use("/", approutes);

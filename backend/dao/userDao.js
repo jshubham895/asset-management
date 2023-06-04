@@ -27,15 +27,9 @@ class UserDao {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await User.findOne({ email: email });
-        if (!user) throw "email does not exist";
         resolve(user);
       } catch (err) {
-        reject({
-          error: {
-            message: err,
-            status: 404,
-          },
-        });
+        reject(err);
       }
     });
   }

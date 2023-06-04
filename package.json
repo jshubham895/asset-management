@@ -5,6 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "frontend-build": "cd frontend && npm run build",
+    "backend-start": "node backend/server.js",
+    "build": "npm run frontend-build",
+    "start": "npm run build && npm run backend-start",
     "frontend": "cd frontend && npm run dev",
     "backend": "nodemon backend/server.js"
   },
@@ -22,7 +26,6 @@
     "mongoose": "^7.2.2",
     "multer": "^1.4.5-lts.1",
     "multer-s3": "^2.10.0",
-    "nodemon": "^2.0.22",
-    "unzipper": "^0.10.14"
+    "nodemon": "^2.0.22"
   }
 }

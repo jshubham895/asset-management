@@ -92,8 +92,84 @@ const removeDirectory = (dirPath) => {
 
     // Remove the empty directory
     fs.rmdirSync(dirPath);
-    console.log("Directory removed successfully.");
   } else {
     console.log("Directory does not exist.");
+  }
+};
+
+export const getAssetByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const data = await assetDao.getAssetsByUserId(userId);
+    return res.status(200).json({
+      success: true,
+      message: "fetched all available assets",
+      data,
+    });
+  } catch (err) {
+    return res.status(err?.status || 500).json({
+      success: false,
+      message: "failed to fetch assets",
+      error: err?.message ?? err.err ?? "something went wrong",
+    });
+  }
+};
+
+export const getAssetById = async (req, res) => {
+  try {
+    const { assetId } = req.params;
+    const data = await assetDao.getAssetsByAssetId(assetId);
+    return res.status(200).json({
+      success: true,
+      message: "fetched available assets",
+      data,
+    });
+  } catch (err) {
+    return res.status(err?.status || 500).json({
+      success: false,
+      message: "failed to fetch assets",
+      error: err?.message ?? err.err ?? "something went wrong",
+    });
+  }
+};
+
+export const destroyAssetById = async (req, res) => {
+  try {
+    const { assetId } = req.params;
+    const data = await assetDao.destryAssetByAssetId(assetId);
+    return res.status(200).json({
+      success: true,
+      message: "asset deleted",
+      data,
+    });
+  } catch (err) {
+    return res.status(err?.status || 500).json({
+      success: false,
+      message: "failed to fetch assets",
+      error: err?.message ?? err.err ?? "something went wrong",
+    });
+  }
+};
+
+export const updateAssetById = async (req, res) => {
+  try {
+    const { assetId } = req.params;
+    const asset = {
+      name: req.body.name,
+      tags: req.body.tags,
+      category: req.body.category,
+    };
+    const data = await assetDao.updateAssetByAssetId(assetId, asset);
+    return res.status(200).json({
+      success: true,
+      message: "asset updated",
+      data,
+    });
+  } catch (err) {
+    return res.status(err?.status || 500).json({
+      success: false,
+      message: "failed to update asset",
+      error: err?.message ?? err.err ?? "something went wrong",
+    });
   }
 };

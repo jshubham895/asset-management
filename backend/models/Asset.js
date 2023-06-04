@@ -30,6 +30,9 @@ const assetSchema = new Schema(
         },
       ],
     },
+    deleted: {
+      type: Boolean,
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",

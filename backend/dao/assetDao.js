@@ -18,6 +18,90 @@ class AssetDao {
       }
     });
   }
+
+  getAssetsByUserId(userId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const assets = await Asset.find({
+          user: userId,
+          $or: [{ deleted: { $exists: false } }, { deleted: false }],
+        })
+          .populate({
+            path: "user",
+            select: "-password",
+          })
+          .sort({
+            createdAt: -1,
+          });
+        resolve(assets);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  getAssetsByAssetId(assetId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const assets = await Asset.findOne({
+          _id: assetId,
+          $or: [{ deleted: { $exists: false } }, { deleted: false }],
+        })
+          .populate({
+            path: "user",
+            select: "-password",
+          })
+          .sort({
+            createdAt: -1,
+          });
+        resolve(assets);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  destryAssetByAssetId(assetId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const assets = await Asset.updateOne(
+          {
+            _id: assetId,
+          },
+          { $set: { ["deleted"]: true } }
+        ).populate({
+          path: "user",
+          select: "-password",
+        });
+        resolve(assets);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  updateAssetByAssetId(assetId, asset) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const assets = await Asset.updateOne(
+          {
+            _id: assetId,
+          },
+          { $set: asset }
+        )
+          .populate({
+            path: "user",
+            select: "-password",
+          })
+          .sort({
+            createdAt: -1,
+          });
+        resolve(assets);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
 }
 
 export default AssetDao;

@@ -7,10 +7,19 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await userDao.getUserByEmail(email);
+    if (!user) {
+      return res.status(422).json({
+        success: false,
+        message: "user does not exist",
+        error: "Invalid credentials",
+      });
+    }
     if (user.password !== password) {
-      return res
-        .status(401)
-        .json({ success: false, error: "Invalid credentials" });
+      return res.status(401).json({
+        success: false,
+        message: "password does not match",
+        error: "Invalid credentials",
+      });
     }
 
     const copyUser = {
