@@ -2,7 +2,7 @@
   "name": "asset_management_system",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "backend/server.js",
   "type": "module",
   "scripts": {
     "frontend-build": "cd frontend && npm run build",
