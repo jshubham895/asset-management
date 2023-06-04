@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import userManager from "../manager/userManager.js";
+import userManager from "../manager/userManager";
 import SignInSignUpForm from "./signInSignUpForm";
 import { useEffect } from "react";
 
