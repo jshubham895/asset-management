@@ -64,7 +64,7 @@
 
 
 .full-width{
-  width: 100vw;
+  width: 98vw;
 }
 
 .center-container{
@@ -82,3 +82,124 @@
 .unordered-list>li{
   list-style: none;
 }
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 350px;
+  height: 350px;
+}
+
+.card-image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e0e0e0;
+  border-radius: 16px;
+  padding: 6px 12px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.chip-text {
+  font-size: 14px;
+  margin-left: 8px;
+  margin-right: 4px;
+}
+
+
+.image-group-container{
+  margin-bottom: 70px;
+  padding: 20px;
+}
+
+
+.update-group-btn{
+  padding: 6px 12px;
+  margin: 10px 0px 10px 0px;
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: #FF6263;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.update-asset-form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  margin: 0 auto;
+}
+
+.update-asset-form label {
+  margin-bottom: 0.5rem;
+}
+
+.update-asset-form input,
+.update-asset-form textarea {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+
+.update-asset-form .cross-btn{
+  margin-left: 10px;
+  background-color: #FF6263;
+  color: white; 
+  font-size: 15px;
+}
+
+
+.update-asset-form button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  border-radius: 3px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+
+
+.update-asset-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.update-asset-form .error-message {
+  color: red;
+  margin-top: 0.5rem;
+}
+
+.delete-asset-btn {
+  padding: 0.5rem 1rem;
+  background-color: #FF6263;
+  color: white;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.direction-column{
+  display: flex;
+  flex-direction: column;
+}
+

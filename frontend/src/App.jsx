@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import CreateAsset from "./components/CreateAsset";
+import UpdateAsset from "./components/UpdateAsset";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-asset" element={<CreateAsset />} />
+          <Route path="/update-asset/:assetId" element={<UpdateAsset />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

@@ -20,7 +20,6 @@ const Register = () => {
     userManager
       .createUser(formBody)
       .then((res) => {
-        console.log(res);
         navigate("/login");
       })
       .catch((err) => console.log("Error", err));

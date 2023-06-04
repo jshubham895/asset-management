@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import authManager from "../manager/authManager";
 import SignInSignUpForm from "./signInSignUpForm";
 import { useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,12 +30,15 @@ const Login = () => {
         );
         navigate("/dashboard");
       })
-      .catch((err) => console.log("Error", err));
+      .catch((err) => {
+        toast.error(err?.response?.data.message || "failed to login");
+      });
   };
   return (
     <div>
       Login
       <SignInSignUpForm handleSubmit={handleSubmit} />
+      <ToastContainer />
     </div>
   );
 };

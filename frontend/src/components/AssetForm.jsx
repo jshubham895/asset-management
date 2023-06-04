@@ -2,53 +2,54 @@ import { Field, Form, Formik, useField } from "formik";
 import * as Yup from "yup";
 import DropZone from "./DropZone";
 import assetManager from "../manager/assetManager";
-
-const AssetFormSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "too Short!")
-    .max(50, "too Long!")
-    .required("required"),
-  category: Yup.string()
-    .min(2, "too Short!")
-    .max(50, "too Long!")
-    .required("required"),
-  tags: Yup.string()
-    .min(2, "too Short!")
-    .max(50, "too Long!")
-    .required("required"),
-  folder: Yup.mixed().required("required"),
-});
-
-const handleSubmit = (values, { setSubmitting }) => {
-  console.log(values.folder);
-
-  const formData = new FormData();
-  formData.append("folder", values.folder[0]);
-  formData.append("tags", values.tags.split(","));
-  formData.append("name", values.name);
-  formData.append("category", values.category);
-  assetManager
-    .createAssetData(formData)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      setSubmitting(false);
-    });
-};
-
-const initialValues = { name: "", category: "", tags: "", folder: [] };
-
-const FileUploader = ({ ...props }) => {
-  const [field, meta, helpers] = useField(props); // name
-
-  return <DropZone meta={meta} field={field} helpers={helpers} />;
-};
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const AssetForm = () => {
+  const navigate = useNavigate();
+
+  const AssetFormSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "too Short!")
+      .max(50, "too Long!")
+      .required("required"),
+    category: Yup.string()
+      .min(2, "too Short!")
+      .max(50, "too Long!")
+      .required("required"),
+    tags: Yup.string()
+      .min(2, "too Short!")
+      .max(50, "too Long!")
+      .required("required"),
+    folder: Yup.mixed().required("required"),
+  });
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    const formData = new FormData();
+    formData.append("folder", values.folder[0]);
+    formData.append("tags", values.tags.split(","));
+    formData.append("name", values.name);
+    formData.append("category", values.category);
+    assetManager
+      .createAssetData(formData)
+      .then((res) => {
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        toast.error("failed to upload asset");
+        console.log(err);
+      });
+  };
+
+  const initialValues = { name: "", category: "", tags: "", folder: [] };
+
+  const FileUploader = ({ ...props }) => {
+    const [field, meta, helpers] = useField(props); // name
+
+    return <DropZone meta={meta} field={field} helpers={helpers} />;
+  };
+
   return (
     <div>
       <Formik
@@ -75,15 +76,18 @@ const AssetForm = () => {
               <div style={styles.error}>{errors.tags}</div>
             ) : null}
             <div style={styles.info}>
-              <span>add multiple tags using comma</span>
+              <span>
+                add multiple tags using comma e.g--{'> " tag1 , tag2 "'}
+              </span>
             </div>
             <FileUploader name="folder" />
             <button style={styles.submitBtn} type="submit">
-              Submit
+              upload
             </button>
           </Form>
         )}
       </Formik>
+      <ToastContainer />
     </div>
   );
 };
@@ -114,7 +118,19 @@ const styles = {
     color: "#120E43",
     fontWeight: "bold",
   },
-  submitBtn: { border: "solid 3px blue" },
+  submitBtn: {
+    padding: "6px 12px",
+    margin: "10px 0px 10px 0px",
+    borderRadius: "20px",
+    cursor: "pointer",
+    outline: "none",
+    border: "none",
+    backgroundColor: "#FF6263",
+    color: "white",
+    fontSize: "14px",
+    fontWeight: "600",
+    width: 300,
+  },
 };
 
 export default AssetForm;

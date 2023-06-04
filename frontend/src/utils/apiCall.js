@@ -33,3 +33,23 @@ export async function postApiWithFiles(url, body) {
     throw error;
   }
 }
+
+export async function deleteApi(url) {
+  try {
+    const response = await axios.delete(url);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function putApi(url, body) {
+  try {
+    const response = await axios.put(url, body);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
