@@ -28,7 +28,7 @@
     "multer-s3": "^2.10.0",
     "nodemon": "^2.0.22",
     "vite": "^4.3.9,
-        "@vitejs/plugin-react": "^4.0.0"
+    "@vitejs/plugin-react": "^4.0.0"
   },
   ,
   "devDependencies": {
