@@ -12,4 +12,15 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+    sourcemap: false,
+    manifest: true,
+    rollupOptions: {
+      input: {
+        main: "./index.html",
+      },
+    },
+  },
 });
