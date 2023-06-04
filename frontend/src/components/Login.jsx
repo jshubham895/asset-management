@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import authManager from "../manager/authManager";
-import SignInSignUpForm from "./signInSignUpForm";
+import SignInSignUpForm from "./SignInSignUpForm";
 import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
